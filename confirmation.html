@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emu Maker Confirmation</title>
+    <link rel="stylesheet" href="emuStyle.css">
+   
+</head>
+<body>
+    <header>
+        <h1>Emu Maker</h1>
+    </header>
+
+    <div class="navbar">
+        <a href="index.html">Homepage</a>
+        <a href="emuWar.html">Great Emu War</a>
+        <a href="emuPopulation.html">Population</a>
+        <a href="emuHabitat.html">Habitat</a>
+        <a href="emuGame.html">Game</a>
+        <a href="emuForm.html">Make an Emu</a>
+    </div>
+
+
+    <div class="confirmationmessage" id="confirmationMessage" style="text-align: center;" >
+        Thank you for making your emu! wow! So cute!
+    </div>
+
+    <div class="container" id="flex-direction-container">
+
+        <img id="emuImage" src="" alt="Your emu" style="width: 300px;">
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let name = urlParams.get('username');
+        let personality = urlParams.get('personality');
+
+        const personalities = ["curious", "happy", "grumpy", "sassy"];
+        const emuImage = document.getElementById("emuImage");
+        let image = "";
+
+        if (personality === "curious") {
+            image = "P2images/curious.png"
+        }
+        else if (personality === "happy"){ 
+            image = "P2images/happy.png"
+        }
+        else if (personality === "grumpy") {
+            image = "P2images/grumpy.png"
+        }
+        else {
+            image = "P2images/sassy.png"
+        }
+
+        emuImage.src = image; // I had to look up how to do this part in order to dislay the image correctly
+
+
+        document.getElementById('confirmationMessage').textContent = `This is ${name} the emu! They are very ${personality}! wow!`;
+
+    </script>
+</body>
+</html>

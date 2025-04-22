@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Emu Game</title>
+    <link rel="stylesheet" href="emuStyle.css">
+    <style>
+        body {
+            text-align: center;
+        }
+        .game {
+            background: oldlace;
+            padding: 20px;
+            margin: 30px auto;
+            width: 300px;
+        }
+        button {
+            margin: 10px;
+            cursor: pointer;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Emu Game</h1>
+    </header>
+
+    <div class="navbar">
+        <a href="index.html">Homepage</a>
+        <a href="emuWar.html">Great Emu War</a>
+        <a href="emuPopulation.html">Population</a>
+        <a href="emuHabitat.html">Habitat</a>
+        <a href="emuForm.html">Make an Emu</a>
+    </div>
+
+    <div class="game">
+        <h2 id="animalGame">Which animal is taller than an Emu? (emu height: 1.75M) </h2>
+        <p id="animaldescription">Animal: <span id="animal"></span></p>
+        <button onclick="guess('taller')">Taller</button>
+        <button onclick="guess('shorter')">Shorter</button>
+        <p class="result" id="result"></p>
+        <button onclick="nextAnimal()">Next Animal</button>
+        <h2 id="change">Change Animals</h2>
+        <button onclick="changeList('regular')">Variety of Animals</button>
+        <button onclick="changeList('australia')">Australian Animals</button>
+        <button onclick="changeList('extinct')">Extinct Animals</button>
+    </div>
+    
+    <footer>
+        <p>Gavin Monteiro Emu Project</p>
+    </footer>
+
+    <script>
+        const emuHeight = 1.75;
+
+        const varietyList = [
+            { name: "African Elephant", height: 3.3 }, { name: "Giraffe", height: 5.5 }, { name: "Ostrich", height: 2.1 },
+            { name: "Penguin", height: 1.1 }, { name: "Moose", height: 2.1 }, { name: "Chicken", height: 0.4 },
+            { name: "Horse", height: 1.8 }, { name: "Flamingo", height: 1.5 }, { name: "Cow", height: 1.5 },
+            { name: "Crocodile", height: 0.7 }, { name: "Orangutan", height: 1.5 }
+        ];
+        const extinctAnimalList = [
+            { name: "Tyrannosaurus Rex", height: 4.0 }, { name: "Wooly Mammoth", height: 4.0 }, { name: "Dodo", height: 1.0 },
+            { name: "Irish Elk", height: 2.1 }, { name: "Passenger Pidgeon", height: 0.3 }, { name: "Woolly Rhinoceros", height: 2.0 },
+            { name: "Saber-toothed Tiger", height: 1.2 }, { name: "Pinta Island Tortoise", height: 0.45 }
+        ]
+
+        const australiaAnimalList = [
+            { name: "Wombat", height: 0.6 }, { name: "Kangaroo", height: 1.6 }, { name: "Koala", height: 0.7 },
+            { name: "Dingo", height: 0.6 }, { name: "Wallaby", height: 0.8 }, { name: "Red Kangaroo", height: 2.0 }
+        ]
+
+        let animalList = varietyList;
+        let currentAnimal = {}; 
+
+        function nextAnimal() { 
+            const randAnimal = Math.floor(Math.random() * animalList.length);
+            currentAnimal = animalList[randAnimal]; 
+            document.getElementById("animal").innerHTML = currentAnimal.name;
+            document.getElementById("result").innerHTML = "";
+        }
+
+        function guess(guess) {
+            const isTaller = currentAnimal.height > emuHeight;
+            let result = "";
+
+            if (guess === "taller" && isTaller) {
+              result = "Correct! A " + currentAnimal.name + " is " + currentAnimal.height + " M tall.";
+            }
+            else if (guess === "shorter" && !isTaller) {
+              result = "Correct! A " + currentAnimal.name + " is " + currentAnimal.height + " M tall.";
+            }
+            else {
+              result = "Wrong! A " + currentAnimal.name + " is " + currentAnimal.height + " M tall.";
+            }
+
+            document.getElementById("result").innerHTML = result
+        }
+
+        function changeList(list) {
+          if (list === "regular") {
+            animalList = varietyList;
+          }
+          else if (list === "australia") {
+            animalList = australiaAnimalList;
+          }
+          else {
+            animalList = extinctAnimalList;
+          }
+          nextAnimal();
+        }
+
+        window.onload = nextAnimal();
+    </script>
+</body>
+</html>

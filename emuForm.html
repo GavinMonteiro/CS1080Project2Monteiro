@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Make an Emu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="emuStyle.css">
+</head>
+<body>
+    <header>
+        <h1>Make an Emu!</h1>
+    </header>
+    <div class="navbar">
+        <a href="index.html">Homepage</a>
+        <a href="emuWar.html">Great Emu War</a>
+        <a href="emuPopulation.html">Population</a>
+        <a href="emuHabitat.html">Habitat</a>
+        <a href="emuGame.html">Game</a>
+
+    </div>
+
+    <form id="emuForm" action="confirmation.html" method="GET">
+        <br><label for="username">Emu name:</label>
+        <br><br><input type="text" id="username" name="username" placeholder="Enter your emu's name" required/> <br><br>
+
+        <p>Sex:</p>
+        <input type="radio" id="male" name="sex" value="male" />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="sex" value="female" />
+        <label for="female">Female</label><br><br>
+
+
+        <label for="personality">Personality: </label>
+        <select name="personality" id="personality" required>
+            <option value="curious">Curious</option>
+            <option value="happy">Happy</option>
+            <option value="grumpy">Grumpy</option>
+            <option value="sassy">Sassy</option>
+        </select><br><br>
+
+        <!--Submit button-->
+        <button type="submit">Make Emu</button>
+    </form>
+    <script>
+        window.onload = function() {
+            const storedData = JSON.parse(localStorage.getItem("emuFormData"));
+            if (storedData) {
+                document.getElementById('username').value = storedData.name;
+                if (storedData.sex) {
+                    document.querySelector(`input[name="sex"][value="${storedData.sex}"]`).checked = true;
+                }
+                document.getElementById('personality').value = storedData.personality;
+            }
+
+        }
+       document.getElementById("emuForm").onsubmit = function (event) {
+        const name = document.getElementById('username').value;
+        const sex = document.querySelector('input[name="sex"]:checked')?.value;
+        const personality = document.getElementById('personality').value;        
+        if (!name) {
+            alert("Please enter your emu's name.");
+            event.preventDefault(); 
+            return;
+        }
+
+        const emuData = {name: name, sex: sex, personality: personality};
+        localStorage.setItem('emuFormData', JSON.stringify(emuData));
+        
+
+       };
+    </script>
+</body>
+</html>
